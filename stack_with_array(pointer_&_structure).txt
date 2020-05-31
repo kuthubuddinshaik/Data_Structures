@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct stack
+{
+    int size;
+    int top;
+    int *s;
+};
+
+void create(struct stack *a)
+{
+    printf("Enter the size of the stack:");
+    scanf("%d",&a->size);
+    a->top = -1;
+    a->s = (int *)malloc(a->size*sizeof(int));
+}
+
+void display(struct stack a)
+{
+    for(int i=a.top; i>=0; i--)
+    {
+        printf("%d ",a.s[i]);
+    }
+}
+
+int isempty(struct stack a)
+{
+    if(a.top == -1)
+    {
+        printf("Stack is empty:\n");
+    }
+    return 0;
+}
+
+int isfull(struct stack a)
+{
+    if(a.top == a.size - 1)
+    {
+        printf("Stack is full:\n");
+    }
+    return 0;
+}
+
+int topelement(struct stack a)
+{
+    if(!isempty(a))
+    {
+        return a.s[a.top];
+    }
+    return -1;
+}
+
+void push(struct stack *a,int x)
+{
+    if(a->top == a->size-1)
+    {
+        printf("Stack Overflow\n");
+    }
+    else
+    {
+        a->top++;
+        a->s[a->top] = x;
+    }
+}
+
+int pop(struct stack *a)
+{
+    int x;
+    if(a->top == -1)
+    {
+        printf("Stack underflow\n");
+    }
+    else
+    {
+        x = a->s[a->top];
+        a->top--;
+    }
+    return x;
+}
+
+int peek(struct stack a, int index)
+{
+    int x;
+    if(a.top-index+1 < 0)
+        printf("Invalid index\n");
+    x = a.s[a.top-index+1];
+
+    return x;
+}
+
+int main()
+{
+    struct stack a;
+
+    create(&a);
+
+    push(&a,10);
+    push(&a,20);
+    push(&a,30);
+    push(&a,40);
+
+    printf("%d \n",peek(a,2));
+
+   // pop(&a);
+
+    display(a);
+
+    return 0;
+}
