@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct queue
+{
+    int size;
+    int front,rear;
+    int *s;
+};
+
+void create(struct queue *q)
+{
+    printf("Enter the size of queue:");
+    scanf("%d",&q->size);
+    q->front = q->rear = -1;
+    q->s = (int *)malloc(q->size*sizeof(int));
+}
+
+void isempty(struct queue q)
+{
+    if(q.front == q.rear)
+    {
+        printf("Queue is empty");
+    }
+}
+
+void isfull(struct queue q)
+{
+    if(q->rear == q->size-1)
+    {
+        printf("Queue is full");
+    }
+}
+
+void enqueue(struct queue *q,int x)
+{
+    if(q->rear==q->size-1)
+    {
+        printf("Queue is full\n");
+    }
+    else
+    {
+        q->rear++;
+        q->s[q->rear] = x;
+    }
+}
+
+int dequeue(struct queue *q)
+{
+    int x;
+    if(q->front==q->rear)
+    {
+        printf("Queue is empty\n");
+    }
+    else
+    {
+        q->front++;
+        x = q->s[q->front];
+    }
+    return x;
+}
+
+void display(struct queue q)
+{
+    for(int i=q.front+1; i<=q.rear; i++)
+    {
+        printf("%d\n",q.s[i]);
+    }
+}
+
+int main()
+{
+    struct queue q;
+    
+    create(&q);
+    
+    enqueue(&q,10);
+    enqueue(&q,20);
+    enqueue(&q,30);
+    enqueue(&q,40);
+    enqueue(&q,50);
+    
+    display(q);
+    
+    printf("\n%d\n",dequeue(&q));
+    
+    return 0;
+}
